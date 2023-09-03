@@ -1,2 +1,2 @@
-# Open_Music_API
-See u coon for V3 👌
+# Open Music API
+See u soon for V3 👌
