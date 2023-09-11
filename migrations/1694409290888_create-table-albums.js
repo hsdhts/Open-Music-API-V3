@@ -9,15 +9,7 @@ exports.up = (pgm) => {
         notNull: true,
       },
       year: {
-        type: 'INT',
-        notNull: true,
-      },
-      created_at: {
-        type: 'TEXT',
-        notNull: true,
-      },
-      updated_at: {
-        type: 'TEXT',
+        type: 'INTEGER',
         notNull: true,
       },
     });

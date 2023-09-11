@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 exports.up = (pgm) => {
     pgm.createTable('songs', {
       id: {
@@ -9,7 +11,7 @@ exports.up = (pgm) => {
         notNull: true,
       },
       year: {
-        type: 'INT',
+        type: 'INTEGER',
         notNull: true,
       },
       genre: {
@@ -21,20 +23,10 @@ exports.up = (pgm) => {
         notNull: true,
       },
       duration: {
-        type: 'INT',
-        notNull: false,
+        type: 'INTEGER',
       },
-      albumId: {
+      album_id: {
         type: 'TEXT',
-        notNull: false,
-      },
-      created_at: {
-        type: 'TEXT',
-        notNull: true,
-      },
-      updated_at: {
-        type: 'TEXT',
-        notNull: true,
       },
     });
   };

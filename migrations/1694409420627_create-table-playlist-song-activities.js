@@ -25,7 +25,7 @@ exports.up = (pgm) => {
         notNull: true,
       },
     });
-  
+
     pgm.addConstraint(
       'playlist_song_activities',
       'fk_playlist_song_activities.playlist_id_playlists.id',
