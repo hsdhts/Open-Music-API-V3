@@ -1,4 +1,4 @@
-const autoBind = require("auto-bind");
+const autoBind = require('auto-bind');
 
 class UploadsHandler {
   constructor(storageService, albumsService, validator) {
@@ -18,13 +18,12 @@ class UploadsHandler {
     if (oldfilename) {
       await this._storageService.deleteFile(oldfilename);
     }
-
     const filename = await this._storageService.writeFile(cover, cover.hapi);
     await this._albumsService.editCoverAlbumById(id, filename);
 
     const response = h.response({
-      status: "success",
-      message: "Sampul  Berhasil diiunggah",
+      status: 'success',
+      message: 'Sampul berhasil diunggah',
     });
     response.code(201);
 

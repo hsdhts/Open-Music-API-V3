@@ -9,7 +9,6 @@ class StorageService {
     }
   }
 
-  // Write file image
   writeFile(file, meta) {
     const filename = +new Date() + meta.filename;
     const path = `${this._folder}/${filename}`;
@@ -23,7 +22,6 @@ class StorageService {
     });
   }
 
-  // Menghapus file image
   deleteFile(filename) {
     const path = `${this._folder}/${filename}`;
 

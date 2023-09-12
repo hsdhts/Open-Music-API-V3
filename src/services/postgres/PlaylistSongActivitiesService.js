@@ -17,9 +17,11 @@ class PlaylistSongActivitiesService {
     };
 
     const result = await this._pool.query(query);
+
     if (!result.rows[0].id) {
-      throw new InvariantError('Playlist aktivitas lagu gagal ditambahkan');
+      throw new InvariantError('Playlist song activity gagal ditambahkan');
     }
+
     return result.rows[0].id;
   }
 
@@ -36,6 +38,7 @@ class PlaylistSongActivitiesService {
       values: [playlistId],
     };
     const result = await this._pool.query(query);
+
     return result.rows;
   }
 }

@@ -1,25 +1,25 @@
-const path = require("path");
+const path = require('path');
 
 const routes = (handler) => [
   {
-    method: "POST",
-    path: "/albums/{id}/covers",
+    method: 'POST',
+    path: '/albums/{id}/covers',
     handler: handler.postUploadCoverHandler,
     options: {
       payload: {
-        allow: "multipart/form-data",
+        allow: 'multipart/form-data',
         multipart: true,
-        output: "stream",
+        output: 'stream',
         maxBytes: 512000, 
       },
     },
   },
   {
-    method: "GET",
-    path: "/albums/{id}/{param*}",
+    method: 'GET',
+    path: '/albums/{id}/{param*}',
     handler: {
       directory: {
-        path: path.resolve(__dirname, "file"),
+        path: path.resolve(__dirname, 'file'),
       },
     },
   },

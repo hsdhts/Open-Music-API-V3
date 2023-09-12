@@ -1,4 +1,5 @@
 const autoBind = require('auto-bind');
+const config = require('../../utils/config');
 
 class AlbumsHandler {
   constructor(service, validator) {
@@ -10,8 +11,9 @@ class AlbumsHandler {
 
   async postAlbumHandler(request, h) {
     this._validator.validateAlbumPayload(request.payload);
-    const { name, year } = request.payload;
-    const albumId = await this._service.addAlbum({ name, year });
+
+    const albumId = await this._service.addAlbum(request.payload);
+
     const response = h.response({
       status: 'success',
       message: 'Album berhasil ditambahkan',
@@ -19,6 +21,7 @@ class AlbumsHandler {
         albumId,
       },
     });
+
     response.code(201);
     return response;
   }
@@ -26,6 +29,14 @@ class AlbumsHandler {
   async getAlbumByIdHandler(request) {
     const { id } = request.params;
     const album = await this._service.getAlbumById(id);
+    const songs = await this._service.getSongsByAlbumId(album.id);
+    album.songs = songs;
+
+    album.coverUrl = album.cover;
+    if (album.cover) {
+      album.coverUrl = `http://${config.app.host}:${config.app.port}/albums/${id}/covers/${album.cover}`;
+    }
+
     return {
       status: 'success',
       data: {
@@ -35,18 +46,22 @@ class AlbumsHandler {
   }
 
   async putAlbumByIdHandler(request) {
-    this._validator.validateAlbumPayload(request.payload);
     const { id } = request.params;
+    this._validator.validateAlbumPayload(request.payload);
+
     await this._service.editAlbumById(id, request.payload);
+
     return {
       status: 'success',
-      message: 'Album Berhasil diperbarui',
+      message: 'Album berhasil diperbarui',
     };
   }
 
   async deleteAlbumByIdHandler(request) {
     const { id } = request.params;
+
     await this._service.deleteAlbumById(id);
+
     return {
       status: 'success',
       message: 'Album berhasil dihapus',

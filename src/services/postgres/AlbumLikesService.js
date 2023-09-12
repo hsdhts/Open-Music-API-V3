@@ -5,11 +5,12 @@ const NotFoundError = require('../../exceptions/NotFoundError');
 const ClientError = require('../../exceptions/ClientError');
 
 class AlbumLikesService {
-  constructor(cacheService, client) {
-    this._pool = new Pool({ client }); 
+  constructor(cacheService, dbConfig) {
+    this._pool = new Pool(dbConfig);
     this._cacheService = cacheService;
   }
 
+  // check album likes
   async checkAlbumLike(userId, albumId) {
     const query = {
       text: `SELECT id FROM user_album_likes
@@ -21,6 +22,7 @@ class AlbumLikesService {
     return result.rowCount > 0;
   }
 
+  // add like album
   async addAlbumLike(userId, albumId) {
     const isLiked = await this.checkAlbumLike(userId, albumId);
     if (isLiked) {
@@ -44,6 +46,7 @@ class AlbumLikesService {
     return result.rows[0].id;
   }
 
+  // delete like album
   async deleteAlbumLike(userId, albumId) {
     const query = {
       text: 'DELETE FROM user_album_likes WHERE user_id = $1 AND album_id = $2 RETURNING id',
@@ -59,6 +62,7 @@ class AlbumLikesService {
     await this._cacheService.delete(`albumLikes:${albumId}`);
   }
 
+  // get album likes
   async getAlbumLikes(albumId) {
     try {
       const result = await this._cacheService.get(`albumLikes:${albumId}`);
