@@ -1,4 +1,4 @@
-# OpenMusic API V2 - Hapi JS
+# OpenMusic API V3 - Hapi JS
 
 ## Endpoint
 
